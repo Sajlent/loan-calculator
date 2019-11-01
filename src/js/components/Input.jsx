@@ -17,7 +17,8 @@ export default class Input extends Component {
             <React.Fragment>
                 <label>
                     { this.props.label }
-                    <input type="number" name={ this.props.name } id={ this.props.name } onChange={ this.handleChange }/>
+                    <input type="number" name={ this.props.name } id={ this.props.name }
+                           onChange={ this.handleChange }/>
                 </label>
             </React.Fragment>
         );
