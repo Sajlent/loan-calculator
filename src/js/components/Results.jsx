@@ -22,9 +22,8 @@ export default class Results extends Component {
 
     calculateResult() {
         const rate = (this.props.interestRate / 100) / this.props.annualPayments;
-        const nper = parseInt(this.props.repaymentPeriod, 10) * this.props.annualPayments;
-        const loanAmount = parseInt(this.props.loanAmount, 10);
-        const pv = -loanAmount;
+        const nper = this.props.repaymentPeriod * this.props.annualPayments;
+        const pv = -this.props.loanAmount;
 
         const pvif = Math.pow(1 + rate, nper);
         let pmt = rate / (pvif - 1) * -(pv * pvif);
@@ -47,8 +46,8 @@ export default class Results extends Component {
 }
 
 Results.propTypes= {
-    loanAmount: PropTypes.string,
-    repaymentPeriod: PropTypes.string,
+    loanAmount: PropTypes.number,
+    repaymentPeriod: PropTypes.number,
     interestRate: PropTypes.number,
     annualPayments: PropTypes.number
 };

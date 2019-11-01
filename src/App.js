@@ -8,6 +8,8 @@ export default class App extends Component {
         super(props);
 
         this.state = {
+            defaultLoanAmount: 50000,
+            defaultRepaymentPeriod: 6,
             repaymentPeriods: [],
             interestRate: 0,
             annualPayments: 12
@@ -22,7 +24,6 @@ export default class App extends Component {
         fetch('./data/data.json')
             .then(res => res.json())
             .then((result) => {
-                console.log('get json');
                 this.setState({
                     repaymentPeriods: result['repayment-periods'],
                     interestRate: result['interest-rate'],
@@ -39,9 +40,9 @@ export default class App extends Component {
         console.log('render app');
         return (
             <div className="app">
-                <Input name="loan-amount" label="Loan amount"/>
-                <RadioGroup name="loan-term" label="Loan term" groupData={ this.state.repaymentPeriods }/>
-                <Results repaymentPeriod="6" loanAmount='50000' interestRate={ this.state.interestRate }
+                <Input name="loan-amount" label="Loan amount" defaultValue={ this.state.defaultLoanAmount }/>
+                <RadioGroup name="loan-term" label="Loan term" groupData={ this.state.repaymentPeriods } checked={ this.state.defaultRepaymentPeriod }/>
+                <Results repaymentPeriod={ this.state.defaultRepaymentPeriod } loanAmount={ this.state.defaultLoanAmount } interestRate={ this.state.interestRate }
                          annualPayments={ this.state.annualPayments } />
             </div>
         );

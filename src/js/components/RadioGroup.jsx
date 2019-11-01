@@ -19,6 +19,7 @@ export default class RadioGroup extends Component {
                     <label key={ item }>
                         { item }
                         <input type="radio" name={ this.props.name } id={ item } value={ item }
+                               defaultChecked={ this.props.checked === item }
                                onChange={ this.handleChange }/>
                     </label>
                 )}

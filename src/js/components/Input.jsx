@@ -18,6 +18,7 @@ export default class Input extends Component {
                 <label>
                     { this.props.label }
                     <input type="number" name={ this.props.name } id={ this.props.name }
+                           defaultValue={ this.props.defaultValue }
                            onChange={ this.handleChange }/>
                 </label>
             </React.Fragment>
@@ -27,5 +28,6 @@ export default class Input extends Component {
 
 Input.propTypes = {
     name: PropTypes.string,
-    label: PropTypes.string
+    label: PropTypes.string,
+    defaultValue: PropTypes.number
 };
