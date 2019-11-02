@@ -14,7 +14,7 @@ export default class RadioGroup extends Component {
 
     render() {
         return(
-            <div>
+            <React.Fragment>
                 { this.props.groupData.map((item) =>
                     <label key={ item }>
                         { item }
@@ -23,7 +23,7 @@ export default class RadioGroup extends Component {
                                onChange={ this.handleChange }/>
                     </label>
                 )}
-            </div>
+            </React.Fragment>
         );
     }
 }

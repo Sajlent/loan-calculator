@@ -1,0 +1,14 @@
+.results {
+    background: $color-pineapple;
+    color: $color-silver;
+    padding: 40px;
+
+    &__repayment {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    &__rate {
+        font-size: 1.42rem;
+    }
+}

@@ -7,3 +7,11 @@
 .row {
     display: flex;
 }
+
+.main {
+    flex: 0 0 67%;
+}
+
+.aside {
+    flex: 0 0 33%;
+}

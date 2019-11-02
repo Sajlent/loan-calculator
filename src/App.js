@@ -37,13 +37,17 @@ export default class App extends Component {
     }
 
     render() {
-        console.log('render app');
+        console.log('Render app component', this.state);
         return (
-            <div className="app">
-                <Input name="loan-amount" label="Loan amount" defaultValue={ this.state.defaultLoanAmount }/>
-                <RadioGroup name="loan-term" label="Loan term" groupData={ this.state.repaymentPeriods } checked={ this.state.defaultRepaymentPeriod }/>
-                <Results repaymentPeriod={ this.state.defaultRepaymentPeriod } loanAmount={ this.state.defaultLoanAmount } interestRate={ this.state.interestRate }
-                         annualPayments={ this.state.annualPayments } />
+            <div className="app row">
+                <main className="main">
+                    <Input name="loan-amount" label="Loan amount" defaultValue={ this.state.defaultLoanAmount }/>
+                    <RadioGroup name="loan-term" label="Loan term" groupData={ this.state.repaymentPeriods } checked={ this.state.defaultRepaymentPeriod }/>
+                </main>
+                <aside className="aside">
+                    <Results repaymentPeriod={ this.state.defaultRepaymentPeriod } loanAmount={ this.state.defaultLoanAmount } interestRate={ this.state.interestRate }
+                             annualPayments={ this.state.annualPayments } />
+                </aside>
             </div>
         );
     }

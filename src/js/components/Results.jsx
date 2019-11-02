@@ -11,7 +11,7 @@ export default class Results extends Component {
     }
 
     componentDidMount() {
-        this.calculateResult();
+        //this.calculateResult();
     }
 
     componentDidUpdate(prevProps) {
@@ -24,10 +24,9 @@ export default class Results extends Component {
         const rate = (this.props.interestRate / 100) / this.props.annualPayments;
         const nper = this.props.repaymentPeriod * this.props.annualPayments;
         const pv = -this.props.loanAmount;
-
         const pvif = Math.pow(1 + rate, nper);
-        let pmt = rate / (pvif - 1) * -(pv * pvif);
 
+        let pmt = rate / (pvif - 1) * -(pv * pvif);
         pmt /= (1 + rate);
 
         this.setState({
@@ -36,10 +35,15 @@ export default class Results extends Component {
     }
 
     render() {
-        console.log('render results');
+        console.log('Render Results component', this.state.monthlyRate);
         return(
-            <div className="">
-                <h3>{ this.state.monthlyRate }</h3>
+            <div className="results">
+                <h2>Monthly repayment</h2>
+                <p className="results__repayment">{ this.state.monthlyRate } PLN</p>
+
+                <h3>Interest rate</h3>
+                {/* TODO: Pass data from global state */}
+                <p className="results__rate">10,25%</p>
             </div>
         );
     }
