@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-export default class Results extends Component {
+class Results extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             monthlyRate: 0
         }
-    }
-
-    componentDidMount() {
-        //this.calculateResult();
     }
 
     componentDidUpdate(prevProps) {
@@ -21,9 +18,11 @@ export default class Results extends Component {
     }
 
     calculateResult() {
+        const currentLoanAmount = this.props.loanAmount || this.props.defaultLoanAmount;
+        const currentRepaymentPeriod = this.props.repaymentPeriod || this.props.defaultRepaymentPeriod;
         const rate = (this.props.interestRate / 100) / this.props.annualPayments;
-        const nper = this.props.repaymentPeriod * this.props.annualPayments;
-        const pv = -this.props.loanAmount;
+        const nper = currentRepaymentPeriod * this.props.annualPayments;
+        const pv = -currentLoanAmount;
         const pvif = Math.pow(1 + rate, nper);
 
         let pmt = rate / (pvif - 1) * -(pv * pvif);
@@ -35,7 +34,6 @@ export default class Results extends Component {
     }
 
     render() {
-        console.log('Render Results component', this.state.monthlyRate);
         return(
             <div className="results">
                 <h2>Monthly repayment</h2>
@@ -55,3 +53,12 @@ Results.propTypes= {
     interestRate: PropTypes.number,
     annualPayments: PropTypes.number
 };
+
+function mapStateToProps(state) {
+    return {
+        loanAmount: state.loanAmount,
+        repaymentPeriod: state.repaymentPeriod
+    }
+}
+
+export default connect(mapStateToProps)(Results);

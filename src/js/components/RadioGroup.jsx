@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { changeRepaymentPeriod } from '../actions/actions';
 
-export default class RadioGroup extends Component {
+class RadioGroup extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            repaymentPeriod: this.props.checked
+        };
 
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(e) {
-        console.log(e.target.value);
+        const repaymentPeriod = parseInt(e.target.value, 10);
+
+        this.props.dispatch(changeRepaymentPeriod(repaymentPeriod));
     }
 
     render() {
@@ -29,7 +37,10 @@ export default class RadioGroup extends Component {
 }
 
 RadioGroup.propTypes = {
-    name: PropTypes.string,
-    label: PropTypes.string,
-    groupData: PropTypes.array
+    name: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    groupData: PropTypes.array.isRequired,
+    dispatch: PropTypes.func.isRequired
 };
+
+export default connect()(RadioGroup);

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { changeLoanAmount } from '../actions/actions';
+import {connect} from "react-redux";
 
-export default class Input extends Component {
+class Input extends Component {
     constructor(props) {
         super(props);
 
@@ -9,7 +11,9 @@ export default class Input extends Component {
     }
 
     handleChange(e) {
-        console.log(e.target.value);
+        const loanAmount = parseInt(e.target.value, 10);
+
+        this.props.dispatch(changeLoanAmount(loanAmount));
     }
 
     render() {
@@ -27,7 +31,16 @@ export default class Input extends Component {
 }
 
 Input.propTypes = {
-    name: PropTypes.string,
-    label: PropTypes.string,
-    defaultValue: PropTypes.number
+    name: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    defaultValue: PropTypes.number.isRequired,
+    dispatch: PropTypes.func.isRequired
 };
+
+function mapStateToProps(state) {
+    return {
+        loanAmount: state.loanAmount
+    }
+}
+
+export default connect(mapStateToProps)(Input);
