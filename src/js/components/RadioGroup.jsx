@@ -8,7 +8,6 @@ class RadioGroup extends Component {
     constructor(props) {
         super(props);
 
-        console.log(this.props.checked);
         this.state = {
             default: this.props.checked
         }
@@ -24,7 +23,6 @@ class RadioGroup extends Component {
     };
 
     render() {
-        console.log('Render radiogroup', this.state);
         return(
             <React.Fragment>
                 <h3 className="form__heading">{ this.props.groupHeading }</h3>
