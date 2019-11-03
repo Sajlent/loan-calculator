@@ -1,0 +1,47 @@
+.form {
+    &__heading {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.8rem;
+        margin-bottom: 7px;
+    }
+}
+
+.label {
+    display: block;
+    margin-bottom: 20px;
+
+    &--radio {
+        font-size: 1.2rem;
+        padding: 7px 14px;
+        border: 1px solid $color-gray;
+        border-radius: 10px;
+        margin: 0 5px;
+        transition: all .3s ease-in-out;
+        cursor: pointer;
+
+        .form__heading + & {
+            margin-left: 0;
+        }
+    }
+
+    &--checked {
+        background: $color-silver;
+        color: $color-pineapple;
+        font-weight: bold;
+        border-color: $color-pineapple;
+    }
+}
+
+.input {
+    display: block;
+    min-width: 320px;
+    padding: 15px;
+    margin: 0;
+    -moz-appearance: textfield;
+
+    &--radio {
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+    }
+}

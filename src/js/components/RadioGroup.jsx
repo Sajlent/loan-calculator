@@ -2,34 +2,36 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { changeRepaymentPeriod } from '../actions/actions';
+import InputRadio from "./InputRadio";
 
 class RadioGroup extends Component {
     constructor(props) {
         super(props);
 
+        console.log(this.props.checked);
         this.state = {
-            repaymentPeriod: this.props.checked
-        };
-
-        this.handleChange = this.handleChange.bind(this);
+            default: this.props.checked
+        }
     }
 
-    handleChange(e) {
+    chooseOption = (e) => {
         const repaymentPeriod = parseInt(e.target.value, 10);
 
         this.props.dispatch(changeRepaymentPeriod(repaymentPeriod));
-    }
+        this.setState({
+            default: repaymentPeriod
+        })
+    };
 
     render() {
+        console.log('Render radiogroup', this.state);
         return(
             <React.Fragment>
+                <h3 className="form__heading">{ this.props.groupHeading }</h3>
                 { this.props.groupData.map((item) =>
-                    <label key={ item }>
-                        { item }
-                        <input type="radio" name={ this.props.name } id={ item } value={ item }
-                               defaultChecked={ this.props.checked === item }
-                               onChange={ this.handleChange }/>
-                    </label>
+                    <InputRadio key={ item } name={ this.props.name } label={ item }
+                                defaultValue={ this.state.default === item }
+                                chooseOption={ this.chooseOption.bind(this) } />
                 )}
             </React.Fragment>
         );
@@ -38,7 +40,7 @@ class RadioGroup extends Component {
 
 RadioGroup.propTypes = {
     name: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
+    groupHeading: PropTypes.string,
     groupData: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired
 };

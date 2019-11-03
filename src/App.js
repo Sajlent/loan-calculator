@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Input from './js/components/Input';
+import InputNumber from './js/components/InputNumber';
 import RadioGroup from './js/components/RadioGroup';
 import Results from './js/components/Results';
 
@@ -41,12 +41,14 @@ export default class App extends Component {
             <div className="app row">
                 <main className="main">
                     <form>
-                        <Input name="loan-amount" label="Loan amount" defaultValue={ this.state.defaultLoanAmount }/>
-                        <RadioGroup name="loan-term" label="Loan term" groupData={ this.state.repaymentPeriods } checked={ this.state.defaultRepaymentPeriod }/>
+                        <InputNumber name="loan-amount" label="Loan amount" defaultValue={ this.state.defaultLoanAmount }/>
+                        <RadioGroup name="loan-term" groupHeading="Loan term" groupData={ this.state.repaymentPeriods }
+                                    checked={ this.state.defaultRepaymentPeriod }/>
                     </form>
                     </main>
                 <aside className="aside">
-                    <Results defaultRepaymentPeriod={ this.state.defaultRepaymentPeriod } defaultLoanAmount={ this.state.defaultLoanAmount } interestRate={ this.state.interestRate }
+                    <Results defaultRepaymentPeriod={ this.state.defaultRepaymentPeriod }
+                             defaultLoanAmount={ this.state.defaultLoanAmount } interestRate={ this.state.interestRate }
                              annualPayments={ this.state.annualPayments } />
                 </aside>
             </div>
