@@ -34,14 +34,20 @@ class Results extends Component {
     }
 
     render() {
+        console.log(this.props.interestRate);
+
         return(
             <div className="results">
                 <h2>Monthly repayment</h2>
                 <p className="results__repayment">{ this.state.monthlyRate } PLN</p>
 
                 <h3>Interest rate</h3>
-                {/* TODO: Pass data from global state */}
-                <p className="results__rate">10,25%</p>
+                <p className="results__rate">
+                    { this.props.interestRate
+                        ? this.props.interestRate.toString().replace('.', ',')
+                        : null
+                    }
+                </p>
             </div>
         );
     }
@@ -56,6 +62,7 @@ Results.propTypes= {
 
 function mapStateToProps(state) {
     return {
+        interestRate: state.interestRate,
         loanAmount: state.loanAmount,
         repaymentPeriod: state.repaymentPeriod
     }

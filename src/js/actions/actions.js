@@ -1,3 +1,7 @@
+export function setInterestRate(rate) {
+    return { type: 'INTEREST_RATE', rate };
+}
+
 export function changeRepaymentPeriod(period) {
     return { type: 'REPAYMENT_PERIOD', period };
 }

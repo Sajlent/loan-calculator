@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { setInterestRate } from './js/actions/actions';
 import InputNumber from './js/components/InputNumber';
 import RadioGroup from './js/components/RadioGroup';
 import Results from './js/components/Results';
 
-export default class App extends Component {
+class App extends Component {
     constructor(props) {
         super(props);
 
@@ -12,7 +14,8 @@ export default class App extends Component {
             defaultRepaymentPeriod: 6,
             repaymentPeriods: [],
             interestRate: 0,
-            annualPayments: 12
+            annualPayments: 12,
+            error: false
         };
     }
 
@@ -24,9 +27,10 @@ export default class App extends Component {
         fetch('./data/data.json')
             .then(res => res.json())
             .then((result) => {
+                this.props.dispatch(setInterestRate(result['interest-rate']));
+
                 this.setState({
                     repaymentPeriods: result['repayment-periods'],
-                    interestRate: result['interest-rate'],
                     annualPayments: result['annual-payments']
                 });
             },
@@ -41,17 +45,21 @@ export default class App extends Component {
             <div className="app row">
                 <main className="main">
                     <form>
-                        <InputNumber name="loan-amount" label="Loan amount" defaultValue={ this.state.defaultLoanAmount }/>
-                        <RadioGroup name="loan-term" groupHeading="Loan term" groupData={ this.state.repaymentPeriods }
+                        <InputNumber name="loan-amount" label="Loan amount"
+                                     defaultValue={ this.state.defaultLoanAmount }/>
+                        <RadioGroup name="loan-term" groupHeading="Loan term (months)"
+                                    groupData={ this.state.repaymentPeriods }
                                     checked={ this.state.defaultRepaymentPeriod }/>
                     </form>
-                    </main>
+                </main>
                 <aside className="aside">
                     <Results defaultRepaymentPeriod={ this.state.defaultRepaymentPeriod }
-                             defaultLoanAmount={ this.state.defaultLoanAmount } interestRate={ this.state.interestRate }
+                             defaultLoanAmount={ this.state.defaultLoanAmount }
                              annualPayments={ this.state.annualPayments } />
                 </aside>
             </div>
         );
     }
 }
+
+export default connect()(App);
