@@ -34,8 +34,6 @@ class Results extends Component {
     }
 
     render() {
-        console.log(this.props.interestRate);
-
         return(
             <div className="results">
                 <h2>Monthly repayment</h2>
@@ -44,7 +42,7 @@ class Results extends Component {
                 <h3>Interest rate</h3>
                 <p className="results__rate">
                     { this.props.interestRate
-                        ? this.props.interestRate.toString().replace('.', ',')
+                        ? `${this.props.interestRate.toString().replace('.', ',')}%`
                         : null
                     }
                 </p>
