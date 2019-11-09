@@ -8,16 +8,6 @@ export default class InputRadio extends Component {
         this.state = {
             checked: false
         };
-
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    componentDidMount() {
-        if (this.props.defaultValue) {
-            this.setState({
-                checked: true
-            });
-        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -26,12 +16,6 @@ export default class InputRadio extends Component {
                 checked: this.props.defaultValue
             });
         }
-    }
-
-    handleChange(e) {
-        this.setState({
-            checked: e.target.checked
-        });
     }
 
     render() {
