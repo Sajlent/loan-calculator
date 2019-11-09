@@ -4,6 +4,11 @@
         font-size: 0.8rem;
         margin-bottom: 7px;
     }
+
+    &__error {
+        color: $color-coquelicot;
+        margin-bottom: 20px;
+    }
 }
 
 .label {

@@ -15,6 +15,7 @@ class App extends Component {
             repaymentPeriods: [],
             interestRate: 0,
             annualPayments: 12,
+            limits: {},
             error: false
         };
     }
@@ -31,7 +32,8 @@ class App extends Component {
 
                 this.setState({
                     repaymentPeriods: result['repayment-periods'],
-                    annualPayments: result['annual-payments']
+                    annualPayments: result['annual-payments'],
+                    limits: result['limits']
                 });
             },
             (error) => {
@@ -46,7 +48,8 @@ class App extends Component {
                 <main className="main">
                     <form>
                         <InputNumber name="loan-amount" label="Loan amount"
-                                     defaultValue={ this.state.defaultLoanAmount }/>
+                                     defaultValue={ this.state.defaultLoanAmount }
+                                     limits={ this.state.limits } />
                         <RadioGroup name="loan-term" groupHeading="Loan term (months)"
                                     groupData={ this.state.repaymentPeriods }
                                     checked={ this.state.defaultRepaymentPeriod }/>

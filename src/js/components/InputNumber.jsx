@@ -7,14 +7,26 @@ class InputNumber extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            error: false
+        };
+
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(e) {
-        // TODO: Add input validation for min max value
-        const loanAmount = parseInt(e.target.value, 10);
+        if (e.target.value.match(/^[0-9]+$/)) {
+            const loanAmount = parseInt(e.target.value, 10);
 
-        this.props.dispatch(changeLoanAmount(loanAmount));
+            if (loanAmount < this.props.limits['min'] || loanAmount > this.props.limits['max']) {
+                this.setState({ error: true });
+            } else {
+                this.props.dispatch(changeLoanAmount(loanAmount));
+                if (this.state.error) this.setState({ error: false });
+            }
+        } else {
+            this.setState({ error: true });
+        }
     }
 
     render() {
@@ -27,6 +39,10 @@ class InputNumber extends Component {
                            defaultValue={ this.props.defaultValue }
                            onChange={ this.handleChange }/>
                 </label>
+                { this.state.error &&
+                    <p className="form__error">
+                        Amount must be a number between { this.props.limits['min'] } and { this.props.limits['max'] } PLN.
+                    </p> }
             </React.Fragment>
         );
     }
@@ -35,6 +51,7 @@ class InputNumber extends Component {
 InputNumber.propTypes = {
     name: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
+    limits: PropTypes.object.isRequired,
     defaultValue: PropTypes.number.isRequired,
     dispatch: PropTypes.func.isRequired
 };

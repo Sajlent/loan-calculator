@@ -10,6 +10,14 @@ export default class InputRadio extends Component {
         };
     }
 
+    componentDidMount() {
+        if (this.props.defaultValue) {
+            this.setState({
+                checked: true
+            });
+        }
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props !== prevProps) {
             this.setState({
@@ -20,14 +28,12 @@ export default class InputRadio extends Component {
 
     render() {
         return(
-            <React.Fragment>
-                <label className={`label--radio ${ this.state.checked ? `label--checked` : `` }`}>
-                    { this.props.label }
-                    <input className="input--radio" type="radio" name={ this.props.name } id={ this.props.label } value={ this.props.label }
-                           defaultChecked={ this.props.defaultValue }
-                           onChange={ this.props.chooseOption }/>
-                </label>
-            </React.Fragment>
+            <label className={`label--radio ${ this.state.checked ? `label--checked` : `` }`}>
+                { this.props.label }
+                <input className="input--radio" type="radio" name={ this.props.name } id={ this.props.label } value={ this.props.label }
+                       defaultChecked={ this.props.defaultValue }
+                       onChange={ this.props.chooseOption }/>
+            </label>
         );
     }
 }

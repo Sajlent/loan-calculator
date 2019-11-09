@@ -1,5 +1,6 @@
 {
   "repayment-periods": [3, 6, 9, 12, 16],
   "interest-rate": 10.25,
-  "annual-payments": 12
+  "annual-payments": 12,
+  "limits": { "min": 500, "max": 500000 }
 }
