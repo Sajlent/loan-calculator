@@ -8,7 +8,11 @@ class Results extends Component {
 
         this.state = {
             monthlyRate: 0
-        }
+        };
+    }
+
+    componentDidMount() {
+        this.calculateResult();
     }
 
     componentDidUpdate(prevProps) {

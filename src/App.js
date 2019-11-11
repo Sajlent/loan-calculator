@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setInterestRate } from './js/actions/actions';
-import InputNumber from './js/components/InputNumber';
-import RadioGroup from './js/components/RadioGroup';
+import Form from './js/components/Form';
 import Results from './js/components/Results';
+import Loading from './js/components/Loading';
 
 class App extends Component {
     constructor(props) {
@@ -16,11 +16,10 @@ class App extends Component {
             interestRate: 0,
             annualPayments: 12,
             limits: {},
+            loading: true,
             error: false
         };
-    }
 
-    componentDidMount() {
         this.getData();
     }
 
@@ -33,7 +32,8 @@ class App extends Component {
                 this.setState({
                     repaymentPeriods: result['repayment-periods'],
                     annualPayments: result['annual-payments'],
-                    limits: result['limits']
+                    limits: result['limits'],
+                    loading: false
                 });
             },
             (error) => {
@@ -46,19 +46,20 @@ class App extends Component {
         return (
             <div className="app row">
                 <main className="main">
-                    <form>
-                        <InputNumber name="loan-amount" label="Loan amount"
-                                     defaultValue={ this.state.defaultLoanAmount }
-                                     limits={ this.state.limits } />
-                        <RadioGroup name="loan-term" groupHeading="Loan term (months)"
-                                    groupData={ this.state.repaymentPeriods }
-                                    checked={ this.state.defaultRepaymentPeriod }/>
-                    </form>
+                    { this.state.loading && <Loading/> }
+                    { !this.state.loading &&
+                        <Form defaultLoanAmount={ this.state.defaultLoanAmount } limits={ this.state.limits }
+                              repaymentPeriods={ this.state.repaymentPeriods }
+                              defaultRepaymentPeriod={ this.state.defaultRepaymentPeriod }
+                        />
+                    }
                 </main>
                 <aside className="aside">
-                    <Results defaultRepaymentPeriod={ this.state.defaultRepaymentPeriod }
-                             defaultLoanAmount={ this.state.defaultLoanAmount }
-                             annualPayments={ this.state.annualPayments } />
+                    { !this.state.loading &&
+                        <Results defaultRepaymentPeriod={this.state.defaultRepaymentPeriod}
+                             defaultLoanAmount={this.state.defaultLoanAmount}
+                             annualPayments={this.state.annualPayments}/>
+                    }
                 </aside>
             </div>
         );
